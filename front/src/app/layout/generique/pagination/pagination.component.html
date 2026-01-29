@@ -1,0 +1,36 @@
+<div class="card-footer border d-flex justify-content-between align-items-center">
+    <small class="d-flex align-items-center gap-2">
+        
+        <select cSelect sizing="sm" style="width: fit-content;"
+            (change)="changeSize($event)"
+        >
+            @for(item of sizeSelect; track item; let i = $index){
+                <option [value]="item" [selected]="item===size">{{item}}</option>
+            }
+            
+        </select>
+        Page {{ page }} sur {{ totalPages }}
+        (Total : {{ totalRecords }} éléments)
+    </small>
+    
+
+
+    <c-pagination aria-label="Page navigation example" style="margin-top: 5px;">
+        <li cPageItem [class.disabled]="page === 1">
+            <a cPageLink (click)="previous()">Précédent</a>
+        </li>
+        
+        <li cPageItem *ngIf="afficherGauche()">
+            <a cPageLink (click)="previousGroupe()">...</a>
+        </li>
+        <li cPageItem *ngFor="let item of  getPageArray(); let i = index"  [active]="item==page">
+            <a cPageLink (click)="chercherPage(item)">{{item}}</a>
+        </li>
+        <li cPageItem *ngIf="afficherDroite()">
+            <a cPageLink (click)="nextGroupe()">...</a>
+        </li>
+        <li cPageItem [class.disabled]="page === totalPages">
+            <a cPageLink (click)="next()">Suivant</a>
+        </li>
+    </c-pagination>
+</div>

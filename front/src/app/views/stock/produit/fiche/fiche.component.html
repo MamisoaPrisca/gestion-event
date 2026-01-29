@@ -1,0 +1,66 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="d-flex justify-content-between mb-3">
+            <span>
+                <h5>Détails du produit : <span class="text-primary">{{produit?.designation!}}</span></h5>
+            </span>
+            <span>
+                <a class="me-3" cButton color="primary" [routerLink]="'/stock/produit/modif/'+idProduit" >Modifier</a>
+                <button class="me-3"  (click)="supprimer()" cButton color="danger" >Supprimer</button>
+            </span>
+        </div>
+        <c-card class="mb-3">
+            <c-card-body>
+                <h6>Informations du produit</h6>
+                <dl class="row">
+                    <dt class="col-sm-3">Ref</dt>
+                    <dd class="col-sm-9">{{produit?.idProduit}}</dd>
+                    
+                    <dt class="col-sm-3">Designation</dt>
+                    <dd class="col-sm-9">{{produit?.designation }}</dd>
+                    
+                    <dt class="col-sm-3">Categorie</dt>
+                    <dd class="col-sm-9">{{produit?.categorie! || '-'}}</dd>
+                    
+                    <dt class="col-sm-3">Marque</dt>
+                    <dd class="col-sm-9">{{produit?.marque! || '-'}}</dd>
+                    
+                    <dt class="col-sm-3">Conditionnement</dt>
+                    <dd class="col-sm-9">{{produit?.conditionnement! || '-'}}</dd>
+                </dl>
+
+                <div>
+                    <c-tabs [activeItemKey]="itemKey" (activeItemKeyChange)="onTabChange($event)">
+                        <c-tabs-list variant="underline-border">
+                            @for(item of tabs ; track item; let i = $index){
+                                <button cTab [itemKey]="i" [routerLink]="[]" [queryParams]="{ itemKey: item }">
+                                    {{item}}
+                                </button>
+                            }
+                            
+                        </c-tabs-list>
+                        <c-tabs-content>
+                            <c-tab-panel class="p-3" [itemKey]="0" >
+                                <app-variante
+                                    [itemKey]="itemKey"
+                                ></app-variante>
+                            </c-tab-panel>
+                            <c-tab-panel class="p-3" [itemKey]="1" >
+                                <app-conditionnement
+                                    [itemKey]="itemKey"
+                                ></app-conditionnement>
+                            </c-tab-panel>
+                            <c-tab-panel class="p-3" [itemKey]="2" >
+                                <app-prix-fournisseur
+                                    [itemKey]="itemKey"
+                                    [produit]="produit"
+                                ></app-prix-fournisseur>
+                            </c-tab-panel>
+                                
+                        </c-tabs-content>
+                    </c-tabs>
+                </div> 
+            </c-card-body>
+        </c-card>
+    </div>
+</div>

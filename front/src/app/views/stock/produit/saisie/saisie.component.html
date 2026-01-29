@@ -1,0 +1,146 @@
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        <h5>Création d’un produit</h5>
+        
+        <c-card>
+            <c-card-body>
+                <form [formGroup]="form" (ngSubmit)="sauvegarder()">
+                    <c-row class="mb-3">
+                        <label cLabel="col" class="col-sm-4" for="nom">
+                            Designation*
+                        </label>
+                        <c-col [sm]="8">
+                            <input cFormControl id="designation" type="text" [class]="getClass('designation')"
+                            formControlName="designation" placeholder="Ex:THB 65cl" />
+                            <c-form-feedback >
+                                Le designation est obligatoire
+                            </c-form-feedback>
+                        </c-col>
+                    </c-row>
+                    
+                    
+                    <c-row class="mb-3">
+                        <label cLabel="col" class="col-sm-4" for="nom">
+                            Conditionnement par defaut
+                        </label>
+                        <c-col [sm]="7">
+                            <generique-autocomplet 
+                                formControlName="conditionnementDefaut"
+                                [items]="conditionnementData"
+                                [valueColumn]="'idConditionnement'"
+                                [labelColumn]="'designation'"
+                                placeholder="Ex:Carton ..."
+                                [class]="getClass('conditionnementDefaut w-100')"
+                                >
+                            </generique-autocomplet>
+                        </c-col>
+                        <c-col [sm]="1">
+                            <button cButton color="light" (click)="toggleLiveDemoConditionnement()">
+                                <svg cIcon name="cilPlaylistAdd"></svg>
+                            </button>
+
+                            
+                            <c-modal id="liveDemoModal" [visible]="visibleConditionnement" (visibleChange)="handleLiveDemoChangeConditionnement($event)">
+                                        
+                                <c-modal-body>
+                                    <div class="d-flex justify-content-end">
+                                        <button (click)="toggleLiveDemoConditionnement()" cButtonClose></button>
+                                    </div>
+                                    <div>
+                                        <app-conditionnement-edit
+                                        (emitData)="addConditionnement($event)"
+                                        ></app-conditionnement-edit>
+                                    </div>
+                                    
+                                </c-modal-body>
+                            </c-modal>
+                            
+                        </c-col>
+                    </c-row>
+                    
+                    <c-row class="mb-3">
+                        <label cLabel="col" class="col-sm-4" for="nom">
+                            Catégorie
+                        </label>
+                        <c-col [sm]="7" class="d-flex">
+                            <select aria-label="Default select example" cSelect
+                                id="idCategorie" formControlName="idCategorie">
+                                @for(item of categorie; track item; let i = $index){
+                                    <option [value]="item.idCategorie">{{item.nom}}</option>
+                                }
+                            </select>
+                        </c-col>
+                        <c-col [sm]="1">
+                            <button cButton color="light" (click)="toggleLiveDemo()">
+                                <svg cIcon name="cilPlaylistAdd"></svg>
+                            </button>
+                            <c-modal id="liveDemoModal" [visible]="visible" (visibleChange)="handleLiveDemoChange($event)">
+                            
+                                <c-modal-body>
+                                    <div class="d-flex justify-content-end">
+                                        <button (click)="toggleLiveDemo()" cButtonClose></button>
+                                    </div>
+                                    <div>
+                                        <app-categorie
+                                            (emitData)="addCategorie($event)"
+                                        ></app-categorie>
+                                    </div>
+                                    
+                                </c-modal-body>
+                            </c-modal>
+                            
+                        </c-col>
+                    </c-row>
+                    
+                    <c-row class="mb-3">
+                        <label cLabel="col" class="col-sm-4" for="nom">
+                            Marque*
+                        </label>
+                        <c-col [sm]="7">
+                            <select aria-label="Default select example" cSelect
+                                id="idMarque" formControlName="idMarque">
+                                @for(item of marque; track item; let i = $index){
+                                    <option [value]="item.idMarque">{{item.nom}}</option>
+                                }
+                                
+                            </select>
+                        </c-col>
+                        <c-col [sm]="1">
+                            <button cButton color="light" (click)="toggleLiveDemoMarque()">
+                                <svg cIcon name="cilPlaylistAdd"></svg>
+                            </button>
+                            <c-modal id="liveDemoModal" [visible]="visibleMarque" (visibleChange)="handleLiveDemoChangeMarque($event)">
+                            
+                            <c-modal-body>
+                                <div class="d-flex justify-content-end">
+                                    <button (click)="toggleLiveDemoMarque()" cButtonClose></button>
+                                </div>
+                                <div>
+                                    <app-marque
+                                        (emitData)="addMarque($event)"
+                                    ></app-marque>
+                                </div>
+                                
+                            </c-modal-body>
+                        </c-modal>
+                        </c-col>
+                    </c-row>
+                    <c-row class="mb-3">
+                        <c-col [sm]="12">
+                            <div class="w-100 d-flex justify-content-end">
+                                <input
+                                    cButton
+                                    type="submit"
+                                    class="px-4 btn btn-primary"
+                                    value="Enregistrer"
+                                    />
+                            </div>
+                        </c-col>
+                    </c-row>
+                    
+                </form>
+            </c-card-body>
+        </c-card>
+    </div>
+</div>

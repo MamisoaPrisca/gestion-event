@@ -1,0 +1,31 @@
+
+<generique-liste
+    [page]="page"
+    [pageSelected]="pageSelected"
+    [sizeSelected]="sizeSelected"
+    [search]="search"
+    [title]="'conditionnement'"
+    (emitData)="recherche($event)"
+    [columns]="columns"
+    (emitFiltre)="filtre($event)"
+    [boutons]="boutons"
+>
+
+</generique-liste>
+
+
+<c-modal id="liveDemoModal" [visible]="visible" (visibleChange)="handleLiveDemoChange($event)">
+            
+    <c-modal-body>
+        <div class="d-flex justify-content-end">
+            <button (click)="toggleLiveDemo()" cButtonClose></button>
+        </div>
+        <div> 
+            <app-conditionnement-edit
+               [conditionnement]="conditionnementSelected"
+                (emitData)="addConditionnement($event)"
+            ></app-conditionnement-edit>
+        </div>
+        
+    </c-modal-body>
+</c-modal>

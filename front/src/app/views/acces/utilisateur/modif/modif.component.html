@@ -1,0 +1,75 @@
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-7">
+        <h5 class="mb-3">Mise à jour des informations utilisateur </h5>
+        <c-card>
+            <c-card-body>
+                <form [formGroup]="form" (ngSubmit)="sauvegarder()">
+                    <c-row class="mb-3">
+                        <label class="col-sm-4" cLabel="col" for="idUtilisateur">
+                            Ref
+                        </label>
+                        <c-col [sm]="8">
+                            <input cFormControl id="idUtilisateur" plaintext readonly type="text" [value]="utilisateur?.idUtilisateur!" />
+                        </c-col>
+                    </c-row>
+                    <c-row class="mb-3">
+                        <label class="col-sm-4" cLabel="col" for="login">
+                            Login
+                        </label>
+                        <c-col [sm]="8">
+                            <input cFormControl id="login" plaintext readonly type="text" [value]="utilisateur?.login!" />
+                        </c-col>
+                    </c-row>
+                    <c-row class="mb-3">
+                    <label cLabel="col" class="col-sm-4" for="nom">
+                        Nom*
+                    </label>
+                    <c-col [sm]="8">
+                        <input cFormControl id="nom" type="text" [class]="getClass('nom')"
+                        formControlName="nom" placeholder="Ex. Rakoto" />
+                        <c-form-feedback >
+                            Le nom est obligatoire
+                        </c-form-feedback>
+                    </c-col>
+                    </c-row>
+                    <c-row class="mb-3">
+                    <label cLabel="col" class="col-sm-4" for="prenom" >
+                        Prénom*
+                    </label>
+                    <c-col [sm]="8">
+                        <input cFormControl id="prenom" type="text" 
+                        formControlName="prenom" placeholder="Ex. Jean"/>
+                    </c-col>
+                    </c-row>
+                    
+                    <c-row class="mb-3">
+                    <label cLabel="col" class="col-sm-4" for="contact"  >
+                        Contact
+                    </label>
+                        <c-col [sm]="8">
+                            <input
+                                cFormControl
+                                id="contact"
+                                type="text"
+                                formControlName="contact"
+                                placeholder="Ex. 0341234567"
+                            />
+                            </c-col>
+                    </c-row>
+                    <div class="w-100 d-flex justify-content-end">
+                        <input
+                            cButton
+                            type="submit"
+                            class="px-4 btn btn-primary"
+                            value="Sauvegarder"
+                            />
+                    </div>
+                </form>
+                
+        </c-card-body>
+        </c-card>  
+    </div>
+    <div class="col-md-1"></div>
+</div>
+ 

@@ -1,0 +1,59 @@
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <div class="d-flex justify-content-between mb-3">
+            <span>
+                <h5>Consultation du rôle : <span class="text-primary">{{role?.nom}}</span></h5>
+            </span>
+            <span>
+                <a class="me-3" cButton color="primary" [routerLink]="'/acces/role/modif/'+idrole" >Modifier</a>
+                <button class="me-3"  (click)="supprimer()" cButton color="danger" >Supprimer</button>
+            </span>
+        </div>
+        <c-card class="mb-3">
+            <c-card-body>
+                <h6>Informations générales</h6>
+                <dl class="row">
+                    <dt class="col-sm-3">Ref</dt>
+                    <dd class="col-sm-9">{{role?.idRole || '-'}}</dd>
+                    
+                    <dt class="col-sm-3">Nom</dt>
+                    <dd class="col-sm-9">{{role?.nom! || '-'}}</dd>
+                </dl>
+                <dl>
+                    <dt>
+                        <div>
+                            <button class="me-3 mb-3" [disabled]="permission"  cButton color="warning" (click)="modifierPermission()">Modifier les permissions</button>
+                        </div>
+                    </dt>
+                </dl>
+                <div>
+                    <c-tabs [activeItemKey]="itemKey" (activeItemKeyChange)="onTabChange($event)">
+                        <c-tabs-list variant="underline-border">
+                            <button cTab [itemKey]="0">Permission detailler</button>
+                            <button cTab [itemKey]="1">Utilisateur affecter</button>
+                        </c-tabs-list>
+                        <c-tabs-content>
+                            <c-tab-panel class="p-3" [itemKey]="0" >
+                                    <app-permission 
+                                        [itemKey]="itemKey"
+                                        [idRole]="idrole"
+                                        [modifier]="permission"
+                                        (emitModifier)="changerModifierPermission($event)"
+                                    ></app-permission>
+                                </c-tab-panel>
+                                <c-tab-panel class="p-3" [itemKey]="1">
+                                    <app-utilisateur 
+                                        [itemKey]="itemKey"
+                                        [idRole]="idrole"></app-utilisateur>
+                                </c-tab-panel>
+                        </c-tabs-content>
+                    </c-tabs>
+                </div> 
+            </c-card-body>
+        </c-card>
+    </div>
+    
+    <div class="col-md-2"></div>
+</div>
+ 

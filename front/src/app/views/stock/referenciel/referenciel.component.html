@@ -1,0 +1,24 @@
+<c-tabs [activeItemKey]="itemKey"  (activeItemKeyChange)="onTabChange($event)">
+  <c-tabs-list variant="underline-border">
+    @for(item of tabs ; track item; let i = $index){
+        <button cTab [itemKey]="i" [routerLink]="[]" [queryParams]="{ itemKey: item }">
+            {{item}}
+        </button>
+    }
+    
+  </c-tabs-list>
+  <c-tabs-content>
+    <c-tab-panel class="p-3" [itemKey]="0" >
+      <app-marque [itemKey]="itemKey"></app-marque>
+    </c-tab-panel>
+    <c-tab-panel class="p-3" [itemKey]="1">
+      <app-categorie [itemKey]="itemKey"></app-categorie>
+    </c-tab-panel>
+    <c-tab-panel class="p-3" [itemKey]="2">
+      <app-variante [itemKey]="itemKey"></app-variante>
+    </c-tab-panel>
+    <c-tab-panel class="p-3" [itemKey]="3">
+      <app-conditionnement [itemKey]="itemKey"></app-conditionnement>
+    </c-tab-panel>
+  </c-tabs-content>
+</c-tabs>

@@ -1,0 +1,28 @@
+<h5 class="mb-3">Création d’une catégorie</h5>
+
+<form [formGroup]="form" (ngSubmit)="sauvegarder()">
+    <c-row class="mb-3">
+        <label cLabel="col" class="col-sm-4" for="nom">
+            Nom*
+        </label>
+        <c-col [sm]="8">
+            <input cFormControl id="nom" type="text" [class]="getClass('nom')"
+            formControlName="nom" placeholder="Couche / Eau / Savon" />
+            <c-form-feedback >
+                Le nom de categorie est obligatoire
+            </c-form-feedback>
+        </c-col>
+    </c-row>
+    <c-row class="mb-3">
+        <c-col [sm]="12">
+            <div class="w-100 d-flex justify-content-end">
+                <input
+                    cButton
+                    type="submit"
+                    class="px-4 btn btn-primary"
+                    value="Enregistrer"
+                    />
+            </div>
+        </c-col>
+    </c-row>
+</form>

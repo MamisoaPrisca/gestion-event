@@ -1,0 +1,209 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="d-flex justify-content-between mb-3">
+            <span>
+                <h5>Détails du commande fournisseur : <span class="text-primary"> {{idcommandeFournisseur}}</span></h5>
+            </span>
+            <span>
+                @if(commandeFournisseur?.etat!<11){
+                    <a class="me-3" cButton color="primary" (click)="valider()"> Valider</a>
+                    <button class="me-3"  (click)="supprimer()" cButton color="danger" >Supprimer</button>
+                }
+                @else{
+                    <a class="me-3" cButton color="primary" (click)="toggleLiveDemo()">Entrer en stock</a>
+                }
+
+            </span>
+        </div>
+        <c-modal id="liveDemoModal" [visible]="visible"  size="lg"
+        (visibleChange)="handleLiveDemoChange($event)" alignment="center"  scrollable>
+            
+            <c-modal-body>
+                <div class="d-flex justify-content-end">
+                    <button (click)="toggleLiveDemo()" cButtonClose></button>
+                </div>
+                <div>
+                    <app-entrer 
+                        [visible]="visible" 
+                        [idcommandeFournisseur] = "idcommandeFournisseur"
+                        (emitData)="entrerEffectuer($event)">
+                        
+                    </app-entrer>
+                </div>
+                
+            </c-modal-body>
+        </c-modal>
+
+        <c-card class="mb-3">
+            <c-card-body>
+                <h6>Informations du commande fournisseur</h6>
+                <dl class="row">
+                    <dt class="col-sm-3">Ref</dt>
+                    <dd class="col-sm-9">{{ commandeFournisseur?.idCommandeFournisseur}}</dd>
+                    
+                    <dt class="col-sm-3">Fournisseur</dt>
+                    <dd class="col-sm-9">{{ commandeFournisseur?.fournisseur}}</dd>
+                    
+                    <dt class="col-sm-3">Date saisie</dt>
+                    <dd class="col-sm-9">{{ commandeFournisseur?.dateSaisie }}</dd>
+                    
+                    <dt class="col-sm-3">Date échéance</dt>
+                    <dd class="col-sm-9">{{ commandeFournisseur?.dateEcheance }}</dd>
+                    
+                    <dt class="col-sm-3">Tonnage</dt>
+                    <dd class="col-sm-9">{{ getPoidsTotal() | number:'1.2-2':'fr'}} Kg</dd>
+                    
+                    <dt class="col-sm-3">Montant HT</dt>
+                    <dd class="col-sm-9">{{ getMontantHT() | number:'1.0-0':'fr' }} Ar</dd>
+                    
+                    <dt class="col-sm-3">Montant TVA</dt>
+                    <dd class="col-sm-9">{{ getMontantTVA() | number:'1.0-0':'fr' }} Ar</dd>
+                    
+                    <dt class="col-sm-3">Montant TTC</dt>
+                    <dd class="col-sm-9">{{ getMontantTotal() | number:'1.0-0':'fr' }} Ar</dd>
+                    
+                    <dt class="col-sm-3">Etat</dt>
+                    <dd class="col-sm-9" > <strong [class]="'text-'+commandeFournisseur?.color">{{commandeFournisseur?.etatLibelle}} </strong></dd>
+                </dl>
+                
+                <h6>Detail commande</h6>
+                    @if(detailCommande.length>0){
+                        <table [striped]="true"  cTable>
+                            <thead>
+                                <tr>
+                                    <th width="120px">Ref</th>
+                                    <th>Designation</th>
+                                    <th class="text-end" style="width: 100px;">Quantite</th>
+                                    <th></th>
+                                    <th width="80px" >TVA</th>
+                                    <th width="200px" class="text-end" style="width: 150px;">P.U HT</th>
+                                    <th width="200px" class="text-end" style="width: 150px;">P.U TTC</th>
+                                    <th class="text-end" style="width: 150px;">Montant HT</th>
+                                    <th style="width: 75px;"style="width: 100px;"></th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for(item of detailCommande; track item; let i = $index){
+                                    @if(isEditRow(item!.idDetailCommandeFournisseur)){
+                                        
+                                        <tr >
+                                            <td>{{item.idDetailCommandeFournisseur}}</td>
+                                            <td>{{item.produit}} {{item.variante}}</td>
+                                            <td>
+                                                <input cFormControl type="number" [(ngModel)]="detailModifier.quantite" (keydown.enter)="sauvegarderModification()"/>
+                                            </td>
+                                            <td>{{item.abreviation}}</td>
+                                            <td>
+                                                <input cFormControl type="number" [value]="item.tva" disabled />
+                                            </td>
+                                            <td>
+                                                <input cFormControl type="number" [value]="item.prix" disabled />
+                                            </td>
+                                            <td>
+                                                <input cFormControl type="number" [value]="item.prixTtc" disabled />
+                                            </td>
+                                            <td>
+                                                <input cFormControl type="number" [value]="getTotalModif()" disabled/>
+                                            </td>
+                                            <td>
+                                                <div class="d-flex">
+                                                    <button cButton class="me-1" color="success" variant="outline" color="success" size="sm" (click)="sauvegarderModification()">
+                                                        <svg cIcon name="cilCheck" size="sm"></svg>
+                                                    </button>
+
+                                                    <button cButton color="danger" size="sm" (click)="annulerModification()">
+                                                        <svg cIcon name="cilX" size="sm"></svg>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                    @else{
+                                        <tr>
+                                            <td>{{item.idDetailCommandeFournisseur}}</td>
+                                            <td>{{item.produit}} {{item.variante}}</td>
+                                            <td class="text-end">{{item.quantite | number:'1.0-0':'fr'}} </td>
+                                            <td>{{item.abreviation}}</td>
+                                            <td>{{item.tva}}%</td>
+                                            <td class="text-end">{{item.prix | number:'1.0-0':'fr'}}</td>
+                                            <td class="text-end">{{item.prixTtc | number:'1.0-0':'fr'}}</td>
+                                            <td class="text-end">{{item.montantTotal | number:'1.0-0':'fr'}}</td>
+                                            <td>
+                                                @if(commandeFournisseur?.etat!<11){
+                                                    <div class="d-flex" >
+                                                    <button cButton class="me-1" color="light" size="sm" (click)="modifier(item)">
+                                                        <svg cIcon name="cilPencil" size="sm"></svg>
+                                                    </button>
+                                                    <button cButton color="light" size="sm" (click)="retirer(item)">
+                                                        <svg cIcon name="cilTrash" size="sm"></svg>
+                                                    </button>
+                                                </div>
+                                                }
+                                                
+                                            </td>
+                                        </tr>
+                                    }
+                                    
+                                }
+                            </tbody>
+                        </table>
+                    }
+                @if(editMode==false && commandeFournisseur?.etat!<11){
+                    <form [formGroup]="form" (ngSubmit)="sauvegarder()">
+                        
+                        <table  color="light" cTable>
+                            <thead>
+                                <tr>
+                                    <th>Designation</th>
+                                    <th class="text-end" style="width: 100px;">Quantite</th>
+                                    <th width="80px" >TVA</th>
+                                    <th width="150px">P.U HT</th>
+                                    <th width="150px">P.U TTC</th>
+                                    <th width="150px">Total</th>
+                                    <th style="width: 75px;"style="width: 100px;"></th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <generique-autocomplet 
+                                            formControlName="produit"
+                                            [items]="produits"
+                                            [labelColumn]="'libelle'"
+                                            placeholder="Ex:nom produit"
+                                            [class]="getClass('produit')"
+                                            (change)="produitChange()"
+                                            >
+                                        </generique-autocomplet>
+                                    </td>
+                                    <td>
+                                        <input cFormControl id="quantite" type="number" formControlName="quantite" placeholder="" />
+                                    </td>
+                                    <td>
+                                        <input cFormControl id="tva" type="number" formControlName="tva" placeholder="" />
+                                    </td>
+                                    <td>
+                                        <input cFormControl id="prix" type="number" formControlName="prix" placeholder="" />
+                                    </td>
+                                    <td>
+                                        <input cFormControl id="prixTtc" type="number" [value]="getPrixTtc()"  disabled />
+                                    </td>
+                                    <td>
+                                        <input cFormControl id="total" type="number" [value]="getTotal()" disabled/>
+                                    </td>
+                                    <th>
+                                        <input cButton color="primary" cFormControl id="ajouter" type="submit" value="Ajouter" />
+
+                                    </th>
+                                </tr>
+                            </tbody>
+                        </table>
+                    
+                    </form>
+                }
+            </c-card-body>
+        </c-card>
+    </div>
+</div>

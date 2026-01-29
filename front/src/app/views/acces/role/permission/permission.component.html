@@ -1,0 +1,44 @@
+
+<div style="max-height: 400px; overflow-y: auto; overflow-x: auto;">
+  <table bordered cTable>
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Fonctionnalité</th>
+      <th scope="col">Permissions</th>
+      <th scope="col">Autorisation</th>
+    </tr>
+    </thead>
+    <tbody>
+      @for(item of permissions; track item; let i = $index){
+        <tr>
+          <th [attr.rowspan]="item.permissions.length" scope="row">{{ i + 1 }}</th>
+          <td [attr.rowspan]="item.permissions.length">
+            {{ item.fonctionnalite }}
+          </td>
+          <td>{{ item.permissions[0].description }}</td>
+          <td>
+            <c-form-check [switch]="true">
+              <input cFormCheckInput checked [disabled]="!modifier" [(ngModel)]="item.permissions[0].autoriser" type="checkbox" [checked]="item.permissions[0].autoriser"/>
+            </c-form-check>
+          </td>
+        </tr>
+        @for(permission of item.permissions.slice(1); track permission; let i = $index){
+          <tr>
+            <td>{{ permission.description }}</td>
+            <td>
+              <c-form-check [switch]="true">
+                <input cFormCheckInput checked [disabled]="!modifier" type="checkbox" [checked]="permission.autoriser"  [(ngModel)]="item.permissions[i+1].autoriser"/>
+              </c-form-check>
+            </td>
+          </tr>
+        }
+      }
+    </tbody>
+  </table>
+  <div>
+    @if(modifier){
+      <button class="me-3 mb-3"  cButton color="light" (click)="sauvegarder()" >Enregistrer</button>
+    }
+  </div>
+</div>

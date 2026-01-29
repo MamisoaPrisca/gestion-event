@@ -1,0 +1,16 @@
+.list-group-item {
+  cursor: pointer;
+}
+
+.list-group-item:hover {
+  background-color: var(--cui-primary);
+  color: white;
+}
+
+.btn-no-bg:focus,
+.btn-no-bg:active,
+.btn-no-bg:visited {
+  outline: none !important;
+  box-shadow: none !important;
+  border: none !important; /* si tu veux enlever la bordure aussi */
+}

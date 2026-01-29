@@ -1,0 +1,52 @@
+<h5 class="mb-3">Entrer en stock</h5>
+<div>
+
+    <c-row class="mb-3">
+        <label cLabel="col" class="col-sm-4" for="nom">
+            Choisir un entrepôt*
+        </label>
+        <c-col [sm]="8">
+            <select aria-label=" Choisir entrepôt" cSelect
+                id="idEntrepot"  [(ngModel)]="idEntrepot">
+                @for(item of entrepot; track item; let i = $index){
+                    <option [value]="item.idEntrepot">{{item.nom}}</option>
+                }
+            </select>
+        </c-col>
+    </c-row>
+    
+</div>
+<table [striped]="true"  cTable>
+    <thead>
+        <tr>
+            <th style="width: 80px;">Ref.</th>
+            <th>Designation</th>
+            <th style="width: 80px;"></th>
+            <th style="width: 100px;">Qte</th>
+            <th style="width: 100px;">Entrer</th>
+            <th style="width: 100px;">Reste</th>
+            <th style="width: 100px;">Entrer</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for(item of detailCommandeAfficher; track item ; let i=$index){
+                <tr>
+                    <td>{{item.idDetailCommandeFournisseur}}</td>
+                    <td>{{item.produit}} {{item.variante || ""}}</td>
+                    <td>{{item.abreviation}}</td>
+                    <td>{{item.quantite}}</td>
+                    <td>{{item.entrer}}</td>
+                    <td>{{item.reste}}</td>
+                    <td>
+                        <input cFormControl type="number" [(ngModel)]="valeur[i].quantite" />
+                    </td>   
+                </tr>
+            
+        }
+        
+    </tbody>
+    
+</table>
+    <div class="d-flex justify-content-end mt-3">
+        <a class="me-3" cButton color="primary" (click)="enregistrer()">Enregistrer</a>
+    </div>

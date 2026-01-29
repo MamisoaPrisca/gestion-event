@@ -1,0 +1,43 @@
+<div style="max-height: 400px; overflow-y: auto; overflow-x: auto;">
+  <div class="d-flex">
+    <div class="flex-grow-1 me-1 ">
+      <generique-autocomplet 
+        [items]="utilisateursData"
+        [(value)]="utilisateurSelected"
+        [valueColumn]="'idUtilisateur'"
+        [labelColumn]="'nomPrenom'"
+        placeholder="Recherche utilisateur ...">
+        
+      </generique-autocomplet>
+    </div>
+    <div>
+      <button class="mb-3" (click) ="affecter()" cButton color="light" >Affecter l'utilisateur</button>
+    </div>
+  </div>
+    
+
+    <table bordered cTable>
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Utilisateur</th>
+      <th style="width: 48px"></th>
+    </tr>
+    </thead>
+    <tbody>
+      @for(item of utilisateurs; track item; let i = $index){
+          <tr>
+              <th scope="row">{{ i + 1}}</th>
+              <td> <a [routerLink]="'/acces/utilisateur/fiche/'+item.idUtilisateur">{{item.nom}} {{item.prenom}}</a></td>
+              <td style="width: 48px">
+                <button cButton color="light" size="sm" (click)="retirer(item.idUtilisateur)">
+                  <svg cIcon name="cilTrash" size="sm"></svg>
+                </button>
+              </td>
+          </tr>
+      }
+      
+    </tbody>
+  </table>
+
+</div>

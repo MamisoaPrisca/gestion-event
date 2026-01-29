@@ -1,0 +1,36 @@
+.chip-hover {
+  border-color: #ced4da;        /* bordure grise par défaut */
+  color: var(--cui-body-color);            /* texte gris par défaut */
+  transition: all 0.2s ease;
+  font-family: var(--cui-body-font-family);
+  font-weight: var(--cui-body-font-weight);
+  line-height: var(----cui-body-line-height);
+}
+
+.chip-hover .btn-close {
+  filter: brightness(0.5);       /* bouton gris par défaut */
+}
+
+.chip-hover:hover {
+  border-color: var(--cui-primary);  /* bordure primaire au survol */
+}
+
+.chip-hover .btn-close-sm {
+  border: none;        /* supprime la bordure du bouton */
+  outline: none;       /* supprime l’outline au clic */
+}
+
+.chip-hover:hover .btn-close-sm {
+  filter: brightness(1) drop-shadow(0 0 0 var(--cui-primary));
+}
+
+.chip-hover .btn-close-sm:focus,
+.chip-hover .btn-close-sm:active {
+  box-shadow: none;    /* supprime l’ombre/focus lors du clic */
+  outline: none;       /* supprime le contour bleu au clic */
+  border: none;        /* s’assure qu’il n’y a pas de bordure */
+}
+
+a{
+  text-decoration-line: none;
+}

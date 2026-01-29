@@ -1,0 +1,31 @@
+
+<generique-liste
+    [page]="page"
+    [pageSelected]="pageSelected"
+    [sizeSelected]="sizeSelected"
+    [search]="search"
+    [title]="'catégories'"
+    (emitData)="recherche($event)"
+    [columns]="columns"
+    (emitFiltre)="filtre($event)"
+    [boutons]="boutons"
+>
+
+</generique-liste>
+
+
+<c-modal id="liveDemoModal" [visible]="visible" (visibleChange)="handleLiveDemoChange($event)">
+            
+    <c-modal-body>
+        <div class="d-flex justify-content-end">
+            <button (click)="toggleLiveDemo()" cButtonClose></button>
+        </div>
+        <div>
+            <app-categorie-edit
+                [categorie]="categorieSelected"
+                (emitData)="addCategorie($event)"
+            ></app-categorie-edit>
+        </div>
+        
+    </c-modal-body>
+</c-modal>

@@ -1,0 +1,32 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="d-flex justify-content-between mb-3">
+            <span>
+                <h5>Détails du fournisseur : <span class="text-primary">{{fournisseur?.designation!}}</span></h5>
+            </span>
+            <span>
+                <a class="me-3" cButton color="primary" [routerLink]="'/achat/fournisseur/modif/'+idFournisseur" >Modifier</a>
+                <button class="me-3"  (click)="supprimer()" cButton color="danger" >Supprimer</button>
+            </span>
+        </div>
+        <c-card class="mb-3">
+            <c-card-body>
+                <h6>Informations du fournisseur</h6>
+                <dl class="row">
+                    <dt class="col-sm-3">Ref</dt>
+                    <dd class="col-sm-9">{{fournisseur?.idFournisseur}}</dd>
+                    
+                    <dt class="col-sm-3">Nom</dt>
+                    <dd class="col-sm-9">{{fournisseur?.nom }}</dd>
+                    
+                    <dt class="col-sm-3">Adresse</dt>
+                    <dd class="col-sm-9">{{fournisseur?.adresse! || '-'}}</dd>
+                    
+                    <dt class="col-sm-3">Contact</dt>
+                    <dd class="col-sm-9">{{fournisseur?.contact! || '-'}}</dd>
+                </dl>
+
+            </c-card-body>
+        </c-card>
+    </div>
+</div>

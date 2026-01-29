@@ -1,0 +1,76 @@
+<h5 class="mb-3">Modifier prix fournisseur: </h5>
+
+<form [formGroup]="form" (ngSubmit)="sauvegarder()">
+    <c-row class="mb-3">
+        <label cLabel="col" class="col-sm-4" for="nom">
+            Ref
+        </label>
+        <c-col [sm]="8"> {{produit?.idProduit}} </c-col>
+    </c-row>
+    <c-row class="mb-3">
+        <label cLabel="col" class="col-sm-4" for="nom">
+            Designation
+        </label>
+        <c-col [sm]="8"> {{produit?.designation}} </c-col>
+    </c-row>
+    <c-row class="mb-3">
+        <label cLabel="col" class="col-sm-4" for="nom">
+            Categorie
+        </label>
+        <c-col [sm]="8"> {{produit?.categorie}} </c-col>
+    </c-row>
+    <c-row class="mb-3">
+        <label cLabel="col" class="col-sm-4" for="nom">
+            Marque
+        </label>
+        <c-col [sm]="8"> {{produit?.marque}} </c-col>
+    </c-row>
+    <c-row class="mb-3">
+        <label cLabel="col" class="col-sm-4" for="nom">
+            Fournisseur
+        </label>
+        <c-col [sm]="8"> {{prixAchat?.fournisseur}} </c-col>
+    </c-row>
+    <c-row class="mb-3">
+        <label cLabel="col" class="col-sm-4" for="nom">
+            Conditionnement
+        </label>
+        <c-col [sm]="8"> {{prixAchat?.conditionnement}} </c-col>
+    </c-row>
+    <c-row class="mb-3">
+        <label cLabel="col" class="col-sm-4" for="nom">
+            Montant*
+        </label>
+        <c-col [sm]="8">
+            <input cFormControl id="montant" type="number" [class]="getClass('montant')"
+            formControlName="montant" />
+            <c-form-feedback >
+                Le montant est obligatoire
+            </c-form-feedback>
+        </c-col>
+    </c-row>
+    <c-row class="mb-3">
+        <label cLabel="col" class="col-sm-4" for="nom">
+            TVA*
+        </label>
+        <c-col [sm]="8">
+            <input cFormControl id="tva" type="number" [class]="getClass('tva')"
+            formControlName="tva" />
+            <c-form-feedback >
+                Le tva est obligatoire
+            </c-form-feedback>
+        </c-col>
+    </c-row>
+    <c-row class="mb-3">
+        <c-col [sm]="12">
+            <div class="w-100 d-flex justify-content-end">
+                <input
+                    cButton
+                    type="submit"
+                    class="px-4 btn btn-primary"
+                    value="Enregistrer"
+                    />
+            </div>
+        </c-col>
+    </c-row>
+</form>

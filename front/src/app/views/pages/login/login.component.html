@@ -1,0 +1,63 @@
+<app-loader></app-loader>
+<div class="bg-light dark:bg-transparent min-vh-100 d-flex flex-row align-items-center">
+  <c-container breakpoint="md">
+    <c-row class="justify-content-center">
+      <c-col lg="10" xl="8">
+        <c-card-group>
+          <c-card class="p-4">
+            <c-card-body>
+              <form cForm [formGroup]="form" (ngSubmit)="connexion()" [validated]="submitted">
+                <h1>Connexion</h1>
+                <p class="text-body-secondary">Connectez-vous à votre espace</p>
+                <c-input-group class="mb-3">
+                  <span cInputGroupText>
+                    <svg cIcon name="cilUser"></svg>
+                  </span>
+                  <input
+                    autoComplete="login" cFormControl placeholder="login" required formControlName="username"/>
+                  <c-form-feedback >Login obligatoire</c-form-feedback>
+                </c-input-group>
+                <c-input-group class="mb-4">
+                  <span cInputGroupText>
+                    <svg cIcon name="cilLockLocked"></svg>
+                  </span>
+                  <input
+                    autoComplete="current-password"
+                    cFormControl
+                    placeholder="Password" required
+                    type="password" formControlName="password"
+                  />
+                  <c-form-feedback >Mot de passe obligatoire</c-form-feedback>
+                </c-input-group>
+                <ng-container *ngIf="errorMessage">
+                    <c-alert color="danger">{{errorMessage}}</c-alert>
+                </ng-container>
+                
+                <c-row>
+                  <c-col xs="6">
+                    <input
+                      cButton
+                      type="submit"
+                      class="px-4 btn btn-primary"
+                      value="Connexion"
+                    />
+                  </c-col>
+                </c-row>
+              </form>
+            </c-card-body>
+          </c-card>
+          <c-card [ngStyle]="{'minWidth.%': 44}" class="text-white bg-primary py-5">
+            <c-card-body class="text-center">
+              <div>
+                <h2>Votre back-office, votre performance</h2>
+                <p>
+                  Accédez à vos données de stock, analysez vos mouvements et optimisez chaque décision.                </p>
+                
+              </div>
+            </c-card-body>
+          </c-card>
+        </c-card-group>
+      </c-col>
+    </c-row>
+  </c-container>
+</div>

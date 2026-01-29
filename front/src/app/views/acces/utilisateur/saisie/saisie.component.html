@@ -1,0 +1,85 @@
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-7">
+        <h5 class="mb-3">Informations de l’utilisateur</h5>
+        <c-card>
+            <c-card-body>
+                <form [formGroup]="form" (ngSubmit)="sauvegarder()">
+                    <c-row class="mb-3">
+                    <label cLabel="col" class="col-sm-4" for="nom">
+                        Nom*
+                    </label>
+                    <c-col [sm]="8">
+                        <input cFormControl id="nom" type="text" [class]="getClass('nom')"
+                        formControlName="nom" placeholder="Ex. Rakoto" />
+                        <c-form-feedback >
+                            Le nom est obligatoire
+                        </c-form-feedback>
+                    </c-col>
+                    </c-row>
+                    <c-row class="mb-3">
+                    <label cLabel="col" class="col-sm-4" for="prenom" >
+                        Prénom*
+                    </label>
+                    <c-col [sm]="8">
+                        <input cFormControl id="prenom" type="text" 
+                        formControlName="prenom" placeholder="Ex. Jean"/>
+                    </c-col>
+                    </c-row>
+                    
+                    <c-row class="mb-3">
+                    <label cLabel="col" class="col-sm-4" for="contact"  >
+                        Contact
+                    </label>
+                        <c-col [sm]="8">
+                            <input
+                                cFormControl
+                                id="contact"
+                                type="text"
+                                formControlName="contact"
+                                placeholder="Ex. 0341234567"
+                            />
+                            </c-col>
+                    </c-row>
+                    <c-row class="mb-3">
+                    <label cLabel="col" class="col-sm-4" for="login" >
+                        login*
+                    </label>
+                    <c-col [sm]="8">
+                        <input cFormControl id="login" type="text" [class]="getClass('login')"
+                        formControlName="login"  placeholder="Nom d’utilisateur"/>
+                        <c-form-feedback >
+                            Le login est obligatoire <br>
+                            Le login doit comporter entre 3 et 20 caractères
+                        </c-form-feedback>
+                    </c-col>
+                    </c-row>
+                    <c-row class="mb-3">
+                    <label cLabel="col" class="col-sm-4" for="password">
+                        Mot de passe*
+                    </label>
+                    <c-col [sm]="8">
+                        <input cFormControl id="password" type="password" [class]="getClass('password')"
+                        formControlName="password" placeholder="Mot de passe" />
+                        <c-form-feedback >
+                            Mot de passe obligatoire <br>
+                            Le mot de passe doit avoir au moins 4 caractères
+                        </c-form-feedback>
+                    </c-col>
+                    </c-row>
+                    <div class="w-100 d-flex justify-content-end">
+                        <input
+                            cButton
+                            type="submit"
+                            class="px-4 btn btn-primary"
+                            value="Enregistrer"
+                            />
+                    </div>
+                </form>
+                
+        </c-card-body>
+        </c-card>  
+    </div>
+    <div class="col-md-1"></div>
+</div>
+ 

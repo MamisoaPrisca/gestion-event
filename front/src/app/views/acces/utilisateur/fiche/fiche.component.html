@@ -1,0 +1,76 @@
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+
+        <div class="d-flex justify-content-between mb-3">
+            <span>
+                <h5>Fiche de <span class="text-primary">{{utilisateur?.nom! || ''}} {{utilisateur?.prenom! || '-'}}</span></h5>
+            </span>
+            <span>
+                <a class="me-3"  cButton color="primary" [routerLink]="'/acces/utilisateur/modif/'+idUtilisateur" >Modifier</a>
+                <button (click)="supprimer()"  class="me-3" cButton color="danger" >Supprimer</button>
+            </span>
+        </div>
+
+        <c-card>
+            <c-card-body>
+            <div class="row">
+                <div class="col-sm-7">
+                    <h6>Information personnel</h6>
+                    <dl class="row">
+                        <dt class="col-sm-3">Ref</dt>
+                        <dd class="col-sm-9">{{utilisateur?.idUtilisateur || '-'}}</dd>
+                        
+                        <dt class="col-sm-3">Nom</dt>
+                        <dd class="col-sm-9">{{utilisateur?.nom! || '-'}}</dd>
+                        
+                        <dt class="col-sm-3">Prenom</dt>
+                        <dd class="col-sm-9">{{utilisateur?.prenom! || '-'}}</dd>
+                        
+                        <dt class="col-sm-3">Contact</dt>
+                        <dd class="col-sm-9">{{utilisateur?.contact! || '-'}}</dd>
+                        
+                        <dt class="col-sm-3">Login</dt>
+                        <dd class="col-sm-9">{{utilisateur?.login! || '-'}}</dd>
+                        
+                        <dt class="col-sm-3">Date creation</dt>
+                        <dd class="col-sm-9">{{afficherDate(utilisateur?.dateCreation)}}</dd>
+                        
+                    </dl>
+                </div>
+                <div class="col-sm-5">
+                    <h6>Gestion du compte</h6>
+                    <div class="mb-3">
+                        <c-form-check [switch]="true">
+                            <input cFormCheckInput (change)="activerUtilisateur()"  type="checkbox" [checked]="utilisateur?.actif!"/>
+                            <label cFormCheckLabel>Activer/Desactiver</label>
+                        </c-form-check>
+                    </div>
+                    <div>
+                        <button (click)="resetPassword()"   cButton color="danger" >Réinitialiser mot de passe</button>
+                    </div>
+                    
+
+                    <c-toaster [placement]="position" class="p-3" position="fixed">
+                    <c-toast
+                        (timer)="onTimerChange($event)"
+                        (visibleChange)="onVisibleChange($event)"
+                        [visible]="visible()"
+                    >
+                        <c-toast-header>
+                        Mot de passe temporaire
+                        </c-toast-header>
+                        <c-toast-body>
+                        <p>{{passwordTemporaire}}</p>
+                        </c-toast-body>
+                    </c-toast>
+                    </c-toaster>
+                </div>
+            </div>
+            
+        </c-card-body>
+        </c-card>  
+    </div>
+    <div class="col-md-1"></div>
+</div>
+ 

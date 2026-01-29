@@ -1,0 +1,221 @@
+<div class="d-flex justify-content-between">
+    <span>
+        <h5>Liste de {{title}} ({{page?.totalElements! }})</h5>
+    </span>
+    <span>
+        @if(saisieButton){
+            @if(saisieButton.link){
+                <a class="me-3 mb-3" 
+                    cButton color="primary" 
+                    [routerLink]="saisieButton.link" >
+                    {{saisieButton.title}}
+                </a>
+
+            }
+            @else if(saisieButton.method){
+                <button class="me-3 mb-3" cButton color="primary" 
+                    (click)="saisieButton.method!(null)">
+                    {{saisieButton.title}}
+                </button>
+            }
+        }
+
+
+    </span>
+</div>
+
+
+<c-card>
+    <c-card-body>
+    <div class="d-flex">
+        <div class="position-relative mb-3 w-25">
+            <input
+                cFormControl
+                type="text"
+                placeholder="Rechercher..."
+                class="form-control ps-5"
+                style="border-radius: 8px;"
+                [value]="search"
+                (keydown.enter)="recherche($event.target.value)"
+            />
+            <svg
+                cIcon
+                name="cilMagnifyingGlass"
+                class="position-absolute start-0 translate-middle-y ms-3 text-muted"
+                style="top: 20px !important;"
+            ></svg>
+        </div>
+        @if(filtre.length>0){
+            <div class="ms-2">
+                <button (click)="toggleCollapse()" cButton color="light">
+                    <svg cIcon name="cilFilter"></svg>
+                </button>
+            </div>
+            <div [visible]="visible()" cCollapse>
+                <div style="min-height: 130px;">
+                    <c-card [visible]="visible" cCollapse horizontal class="shadow ms-1" style="max-width: 260px;">
+                        <c-card-body style="width: 260px;">
+                            <form [formGroup]="form" (ngSubmit)="filtrer()">
+                                @for(item of filtre; track item; let i = $index){
+                                    <div class="mb-3">
+                                        <label cLabel for="exampleFormControlInput1">{{item.label}}</label>
+                                        @if(item.liste && item.liste.length>0){
+                                            <select aria-label="Small select example" cSelect sizing="sm" 
+                                                [id]="item.attribut" [formControlName]="item.attribut">
+                                                <option value="">Tout</option>
+                                                @for(detail of item.liste; track detail; let j = $index){
+                                                    <option [ngValue]="detail">{{detail[item.labelAfficher!]}}</option>
+                                                }
+                                            </select>
+                                        }
+                                        @else{
+                                            <input cFormControl
+                                                id="exampleFormControlInput1"
+                                                placeholder="name@example.com"
+                                                type="email"
+                                                [formControlName]="item.attribut"
+                                            />
+                                        }
+                                    </div>
+                                }
+                            
+                                <div class="d-flex w-100">
+                                    <input
+                                        cButton
+                                        type="submit"
+                                        color="primary"  class="me-1 w-50" size="sm"
+                                        value="Filtrer"
+                                        />
+                                    <button cButton color="secondary"  class="w-50" size="sm">Reinitialiser</button>
+                                </div>
+
+                            </form>
+                                
+
+                        </c-card-body>
+                    </c-card>
+                </div>
+            </div>
+            
+        }
+    </div>
+    
+    <div>
+        
+            <div class="d-flex flex-wrap gap-2 mt-2" >
+                @if(search){
+                        <c-badge
+                        shape="rounded-pill"
+                        class="chip-hover d-flex align-items-center px-2 border bg-white"
+                        style="height: 20.39px; line-height: 20.39px;"
+                    >
+                        {{ search }}
+                        <button
+                        type="button"
+                        class="btn-close btn-close-sm ms-1"
+                        aria-label="Close"
+                        (click)="resetSearch()"
+                        style="width: 12px; height: 12px;"
+                        ></button>
+                    </c-badge>
+                }
+                @if(filtred){
+                         @for(item of filtreAfficher; track item; let i = $index){
+                        <c-badge
+                            shape="rounded-pill"
+                            class="chip-hover d-flex align-items-center px-2 border bg-white"
+                            style="height: 20.39px; line-height: 20.39px;"
+                        >
+                            {{ item.value! }}
+                            <button
+                            type="button"
+                            class="btn-close btn-close-sm ms-1"
+                            aria-label="Close"
+                            (click)="supprimerFiltrer(item.attribut,i)"
+                            style="width: 12px; height: 12px;"
+                            ></button>
+                        </c-badge>
+                    }
+                }
+               
+            </div>
+        
+       
+        
+    </div>
+
+
+    <table cTable bordered class="mt-2">
+        <thead>
+        <tr>
+            @for(item of columns; track item; let i = $index){
+                <th scope="col">{{item.label}}</th>
+            }
+            @if(boutons && boutons.length>0){
+                <th></th>
+            }
+            
+        </tr>
+        </thead>
+        <tbody>
+            @for (item of page?.content!; track item; let i = $index) {
+                <tr> 
+                    @for(col of columns ; track col; let j= $index){
+                        <td [class]="getClass(item[col.attribut])">
+                            @if(col.type==='switch'){
+                                <c-form-check [switch]="true" >
+                                <input cFormCheckInput checked disabled type="checkbox" [checked]="item[col.attribut]"/>
+                                </c-form-check>
+                            }
+                            @else{
+                                @if(col.link){
+                                    <a [routerLink]="col.link+'/'+afficher(item[col.attribut])"> {{ afficher(item[col.attribut])}}</a>
+                                }
+                                @else{
+                                    {{ afficher(item[col.attribut])}}
+                                }
+                            }
+                            
+                            
+                            
+                            
+                        </td>
+                    }
+                    
+                    @if(boutons && boutons.length>0){
+                        <td class="text-right">
+                            @for(col of boutons ; track col; let j= $index){
+                                @if(col.link){
+                                    <a class="ms-1"  cButton color="light" (routerLink)="col.link">
+                                        {{col.title}}
+                                        <svg cIcon [name]="col.icon!"></svg>
+                                    </a>
+                                }
+                                @else if(col.method){
+                                    <button class="ms-1"  cButton color="light" 
+                                        (click)="col.method!(item)">
+                                        {{col.title}}
+                                        <svg cIcon [name]="col.icon!"></svg>
+                                    </button>
+                                }
+                                
+                            }
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    
+    <generique-pagination
+        [totalPages]="page?.totalPages!"
+        [first]="1"
+        [size]="page?.pageable!.pageSize!"
+        [page]=" getPage() "
+        [totalRecords]="page?.numberOfElements! "
+        (emitData)="chercherPage($event)"
+    ></generique-pagination>
+    
+  </c-card-body>
+</c-card>

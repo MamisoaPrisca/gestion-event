@@ -1,0 +1,40 @@
+<h5 class="mb-3">Création d’une conditionnement</h5>
+
+<form [formGroup]="form" (ngSubmit)="sauvegarder()">
+    <c-row class="mb-3">
+        <label cLabel="col" class="col-sm-4" for="designation">
+            Designation*
+        </label>
+        <c-col [sm]="8">
+            <input cFormControl id="designation" type="text" [class]="getClass('designation')"
+            formControlName="designation" placeholder="Ex: Carton" />
+            <c-form-feedback >
+                Le designation de conditionnement est obligatoire
+            </c-form-feedback>
+        </c-col>
+    </c-row>
+    <c-row class="mb-3">
+        <label cLabel="col" class="col-sm-4" for="designation">
+            Abbreviation*
+        </label>
+        <c-col [sm]="8">
+            <input cFormControl id="abreviation" type="text" [class]="getClass('abreviation')"
+            formControlName="abreviation" placeholder="ctn" />
+            <c-form-feedback >
+                Le abbreviation de conditionnement est obligatoire
+            </c-form-feedback>
+        </c-col>
+    </c-row>
+    <c-row class="mb-3">
+        <c-col [sm]="12">
+            <div class="w-100 d-flex justify-content-end">
+                <input
+                    cButton
+                    type="submit"
+                    class="px-4 btn btn-primary"
+                    value="Enregistrer"
+                    />
+            </div>
+        </c-col>
+    </c-row>
+</form>

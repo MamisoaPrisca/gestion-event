@@ -1,0 +1,159 @@
+<div style="max-height: 400px; overflow-y: auto; overflow-x: auto;">
+    <table bordered cTable>
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Conditionnement</th>
+                <th scope="col">Quantite</th>
+                <th scope="col">poids</th>
+                <th scope="col">remarque</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @for(item of conditionnement; track item; let i = $index){
+                @if(item.idConditionnementProduit===modifierConditionnement){
+                    <tr  [formGroup]="formSaisie" (ngSubmit)="enregistrerModification()">
+                        <td>{{item.idConditionnement}}</td>
+                        <td class="d-flex">
+                            
+                            <generique-autocomplet 
+                                formControlName="idConditionnement"
+                                [items]="conditionnementData"
+                                [valueColumn]="'idConditionnement'"
+                                [labelColumn]="'designation'"
+                                placeholder="Ex:Carton ..."
+                                [class]="getClass('idConditionnement')"
+                                >
+                            </generique-autocomplet>
+                            <div>
+                                <button class="mb-3 ms-1"  cButton color="light" (click)="toggleLiveDemo()">
+                                    <svg cIcon name="cilPlus"></svg>
+                                </button>
+                            </div>
+                            
+                        </td>
+                        <td>
+                            <input cFormControl id="quantite" formControlName="quantite" type="number" placeholder="Quantité"
+                                [class]="getClass('quantite')"
+                            > 
+                        </td>
+                        <td>
+                            <input cFormControl id="poids" formControlName="poids" type="number" placeholder="Poids en kg"
+                            >
+                        </td>
+                        <td>
+                            <input cFormControl id="remaque" formControlName="remarque" type="text" placeholder="remarque">
+                        </td>
+                        <td style="width: 64px">
+                            <div class="d-flex">
+                                <button cButton class="me-1" variant="outline" color="success" size="sm" (click)="enregistrerModification()">
+                                    <svg cIcon name="cilCheck" size="sm" ></svg>
+                                </button>
+                                <button cButton class="me-1" color="danger" size="sm" (click)="annulerModification()">
+                                    <svg cIcon name="cilX" size="sm"></svg>
+                                </button>
+                            </div>
+                            
+                        </td>
+                    </tr>
+                }
+                @else{
+                    <tr>
+                        <td>{{item.idConditionnement}}</td>
+                        <td>{{item.conditionnement}} - {{item.abreviation}}</td>
+                        <td style="width: 100px">{{item.quantite}}</td>
+                        <td style="width: 100px">{{ item.poids}}</td>
+                        <td>{{item.remarque}}</td>
+                        <td style="width: 64px">
+                            <div class="d-flex">
+                                <button cButton class="me-1" color="light" size="sm" (click)="modifier(item)">
+                                    <svg cIcon name="cilPencil" size="sm"></svg>
+                                </button>
+                                <button cButton color="light" size="sm" (click)="retirer(item.idConditionnementProduit)">
+                                    <svg cIcon name="cilTrash" size="sm"></svg>
+                                </button>
+                            </div>
+                            
+                        </td>
+                    </tr>
+                }
+                
+            }
+            
+                
+        </tbody>
+        <tfoot>
+            @if(saisie){
+                    <tr [formGroup]="formSaisie" (ngSubmit)="enregistrer()">
+                        <td></td>
+                        <td class="d-flex">
+                            <generique-autocomplet 
+                                formControlName="idConditionnement"
+                                [items]="conditionnementData"
+                                [valueColumn]="'idConditionnement'"
+                                [labelColumn]="'designation'"
+                                placeholder="Ex:Carton ..."
+                                [class]="getClass('idConditionnement')"
+                                >
+                            </generique-autocomplet>
+                            <div>
+                                <button class="mb-3 ms-1"  cButton color="light" (click)="toggleLiveDemo()">
+                                    <svg cIcon name="cilPlus"></svg>
+                                </button>
+                            </div>
+                        </td>
+                        <td>
+                            <input cFormControl id="quantite" formControlName="quantite" type="number" placeholder="Quantité"
+                                [class]="getClass('quantite')"
+                            > 
+                        </td>
+                        <td>
+                            <input cFormControl id="poids" formControlName="poids" type="number" placeholder="Poids en kg"
+                            >
+                        </td>
+                        <td>
+                            <input cFormControl id="remaque" formControlName="remarque" type="text" placeholder="remarque">
+                        </td>
+                        <td>
+                            <button cButton class="me-1" variant="outline" color="success" size="sm" (click)="enregistrer()">
+                                <svg cIcon name="cilCheck" size="sm" ></svg>
+                            </button>
+
+                            <button cButton color="danger" variant="outline" size="sm" (click)="annulerSaisie()">
+                                <svg cIcon name="cilX" size="sm" ></svg>
+                            </button>
+                        </td>
+                    </tr>
+                
+            }
+            @else{
+                <tr>
+                    <td colspan="5"></td>
+                    <td>
+                        <button cButton color="light" size="sm" (click)="activerSaisie()">
+                            <svg cIcon name="cilPlus" size="sm" ></svg>
+                        </button>
+                        
+                    </td>
+                </tr>
+            }
+            
+        </tfoot>
+    </table>
+</div>
+
+<c-modal id="liveDemoModal" [visible]="visible" (visibleChange)="handleLiveDemoChange($event)">
+            
+    <c-modal-body>
+        <div class="d-flex justify-content-end">
+            <button (click)="toggleLiveDemo()" cButtonClose></button>
+        </div>
+        <div>
+            <app-conditionnement-edit
+            (emitData)="addVariante($event)"
+            ></app-conditionnement-edit>
+        </div>
+        
+    </c-modal-body>
+</c-modal>

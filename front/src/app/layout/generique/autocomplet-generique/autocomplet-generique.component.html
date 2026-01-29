@@ -1,0 +1,46 @@
+<div class="position-relative w-100">
+
+  <div class="d-flex align-items-center position-relative">
+    <input
+      type="text"
+      [class]="'form-control flex-grow-1 pe-5 '+class "
+      [placeholder]="placeholder"
+      [value]="getLabel()"
+      (input)="onInputChange($event)"
+      (focus)="onInputFocus()"
+      [disabled]="isDisabled"
+    />
+
+    <!-- Bouton X à l'intérieur pour effacer -->
+    @if(value){
+      <button
+        type="button"
+        class="btn btn-sm bg-white position-absolute end-0 top-50 translate-middle-y btn-no-bg"
+        (click)="clearSelection()"
+        aria-label="Clear"
+        style="padding: 0 6px; height: 28px; color: var(--cui-border-color); margin-right: 5px;"
+      >
+        <svg cIcon name="cilX" size="sm"></svg>
+      </button>
+    }
+
+  </div>
+
+  <!-- Dropdown -->
+  @if(showDropdown){
+    <select
+      aria-label="Multiple select example"
+      cSelect
+      multiple
+      [(ngModel)]="selected"
+      [class]="'w-100 mt-1 '+class "
+      style="max-height: 200px; overflow-y: auto;"
+      (change)="selectItem()"
+    >
+      @for(item of filteredItems; track item; let i = $index){
+        <option [value]="item">{{ item[labelColumn] }}</option>
+      }
+    </select>
+  }
+
+</div>

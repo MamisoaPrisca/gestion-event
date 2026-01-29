@@ -1,0 +1,67 @@
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        <h5>Création d’un produit</h5>
+        
+        <c-card>
+            <c-card-body>
+                <form [formGroup]="form" (ngSubmit)="sauvegarder()">
+                    <c-row class="mb-3">
+                        <label cLabel="col" class="col-sm-4" for="nom">
+                            Nom*
+                        </label>
+                        <c-col [sm]="8">
+                            <input cFormControl id="nom" type="text" [class]="getClass('nom')"
+                            formControlName="nom" placeholder="Ex: Nom du fournisseur" />
+                            <c-form-feedback >
+                                Le nom est obligatoire
+                            </c-form-feedback>
+                        </c-col>
+                    </c-row>
+
+                    
+                    <c-row class="mb-3">
+                        <label cLabel="col" class="col-sm-4" for="contact">
+                            Contact*
+                        </label>
+                        <c-col [sm]="8">
+                            <input cFormControl id="contact" type="text" [class]="getClass('contact')"
+                            formControlName="contact" placeholder="Ex:034..." />
+                            <c-form-feedback >
+                                Le contact est obligatoire
+                            </c-form-feedback>
+                        </c-col>
+                    </c-row>
+
+                    
+                    <c-row class="mb-3">
+                        <label cLabel="col" class="col-sm-4" for="adresse">
+                            Adresse*
+                        </label>
+                        <c-col [sm]="8">
+                            <input cFormControl id="adresse" type="text" [class]="getClass('adresse')"
+                            formControlName="adresse" placeholder="Adresse" />
+                            <c-form-feedback >
+                                Le adresse est obligatoire
+                            </c-form-feedback>
+                        </c-col>
+                    </c-row>
+    
+                    <c-row class="mb-3">
+                        <c-col [sm]="12">
+                            <div class="w-100 d-flex justify-content-end">
+                                <input
+                                    cButton
+                                    type="submit"
+                                    class="px-4 btn btn-primary"
+                                    value="Enregistrer"
+                                    />
+                            </div>
+                        </c-col>
+                    </c-row>
+                    
+                </form>
+            </c-card-body>
+        </c-card>
+    </div>
+</div>

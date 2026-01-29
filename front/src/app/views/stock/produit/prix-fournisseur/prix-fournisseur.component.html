@@ -1,0 +1,80 @@
+<div style="max-height: 400px; overflow-y: auto; overflow-x: auto;">
+    <div class="d-flex justify-content-end">
+        <!-- (click) ="affecter()" -->
+        <button class="mb-3"  cButton color="light" (click)="toggleLiveDemo()">Ajouter prix fournisseur</button>
+    </div>
+    <c-modal id="liveDemoModal" [visible]="visible" (visibleChange)="handleLiveDemoChange($event)">
+            
+        <c-modal-body>
+            <div class="d-flex justify-content-end">
+                <button (click)="toggleLiveDemo()" cButtonClose></button>
+            </div>
+            <div>
+                <app-prix-fournisseur-saisie
+                    [produit]="produit"
+                    [visible]="visible"
+                    (emitData)="getData();toggleLiveDemo()"
+                ></app-prix-fournisseur-saisie>
+            </div>
+            
+        </c-modal-body>
+    </c-modal>
+
+    <table bordered cTable>
+        <thead>
+            <tr>
+                <th width="120px" scope="col">#</th>
+                <th scope="col">Fournisseur</th>
+                <th width="200px" scope="col">Conditionnement</th>
+                <th width="50px" scope="col">TVA</th>
+                <th width="200px" scope="col">P.U HT</th>
+                <th width="200px" scope="col">P.U TTC</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @for(item of prixAchat; track item; let i = $index){
+                <tr>
+                <th scope="row">{{ item.idPrixAchat }}</th>
+                <td>
+                    {{ item.fournisseur }}
+                </td>
+                <td>
+                    {{ item.conditionnement }}
+                </td>
+                <td class="text-end">
+                    {{ item.tva }}
+                </td>
+                <td class="text-end">
+                    {{ item.montant| number:'1.0-0':'fr' }}
+                </td>
+                <td class="text-end">
+                    {{ item.montantTtc | number:'1.0-0':'fr' }}
+                </td>
+                <td style="width: 48px">
+                        <button cButton color="light" size="sm" (click)="setPrixAchat(item)">
+                            <svg cIcon name="cilPencil" size="sm"></svg>
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<c-modal id="liveDemoModalModif" [visible]="visibleModif" (visibleChange)="handleLiveDemoChangeModif($event)">      
+    <c-modal-body>
+        <div class="d-flex justify-content-end">
+            <button (click)="toggleLiveDemoModif()" cButtonClose></button>
+        </div>
+        <div>
+                <!-- 
+                (emitData)="getData();toggleLiveDemo()" -->
+            <app-prix-fournisseur-modif
+                [prixAchat]="prixAchatChoisie"
+                [produit]="produit"
+                (emitData)="getData();toggleLiveDemoModif()"
+            ></app-prix-fournisseur-modif>
+        </div>
+        
+    </c-modal-body>
+</c-modal>
