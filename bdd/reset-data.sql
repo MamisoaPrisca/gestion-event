@@ -1,0 +1,36 @@
+
+delete from historique_prix_achat;
+delete from prix_achat;
+delete from detail_commande_fournisseur;
+delete from conditionnement_produit;
+delete from variante_produit;
+delete from mouvement_stock;
+delete from produit ;
+delete from historique ;
+delete from permission_role pr ;
+delete from utilisateur u where id_utilisateur !='U1';
+delete from categorie c ;
+delete from commande_fournisseur;
+delete from fournisseur ;
+delete from marque;
+delete from role;
+delete from variante ;
+delete from conditionnement c ;
+
+ALTER SEQUENCE seq_historique_prix_achat_id RESTART WITH 1;
+ALTER SEQUENCE seq_prix_achat_id RESTART WITH 1;
+ALTER SEQUENCE seq_detail_commande_fournisseur_id RESTART WITH 1;
+ALTER SEQUENCE seq_conditionnement_produit_id RESTART WITH 1;
+ALTER SEQUENCE seq_variante_produit_id RESTART WITH 1;
+ALTER SEQUENCE seq_mouvement_stock RESTART WITH 1;
+ALTER SEQUENCE seq_produit_id RESTART WITH 1;
+ALTER SEQUENCE sec_historique_id RESTART WITH 1;
+ALTER SEQUENCE seq_permission_role_id RESTART WITH 1;
+ALTER SEQUENCE seq_utilisateur_id RESTART WITH 1;
+ALTER SEQUENCE seq_categorie_id RESTART WITH 1;
+ALTER SEQUENCE seq_commande_fournisseur_id RESTART WITH 1;
+ALTER SEQUENCE seq_fournisseur_id RESTART WITH 1;
+ALTER SEQUENCE seq_marque_id RESTART WITH 1;
+ALTER SEQUENCE seq_role_id RESTART WITH 1;
+ALTER SEQUENCE seq_variante_id RESTART WITH 1;
+ALTER SEQUENCE seq_conditionnement_id RESTART WITH 1;

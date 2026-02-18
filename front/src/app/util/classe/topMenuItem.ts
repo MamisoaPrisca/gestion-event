@@ -1,5 +1,5 @@
 import { INavData } from '@coreui/angular';
-import { navItemsAcces,navItemsAchat,navItemsStock } from './rightMenuItem';
+import { navItemsAcces,navItemsAchat,navItemsClient,navItemsStock } from './rightMenuItem';
 
 export class TopMenuItem  {
     routerLink!: string ;
@@ -10,21 +10,10 @@ export class TopMenuItem  {
 
 export const TOP_MENUS: TopMenuItem[] = [
     {
-        routerLink:"stock",
-        label:"Gestion stock",
+        routerLink:"client",
+        label:"Client",
         routerLinkActivate:true,
-        rightMenuItem:navItemsStock
+        rightMenuItem:navItemsClient
     },
-    {
-        routerLink:"acces",
-        label:"Accès",
-        routerLinkActivate:false,
-        rightMenuItem:navItemsAcces
-    },
-    {
-        routerLink:"achat",
-        label:"Achat",
-        routerLinkActivate:false,
-        rightMenuItem:navItemsAchat
-    }
+
 ]

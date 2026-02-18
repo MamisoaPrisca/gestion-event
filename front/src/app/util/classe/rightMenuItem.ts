@@ -68,3 +68,17 @@ export const navItemsAcces: INavData[] = [
 ];
 
 
+
+export const navItemsClient: INavData[] = [
+  {
+    title: true,
+    name: 'Client'
+  },
+  {
+    name: 'Liste client',
+    url: '/client/liste',
+    iconComponent: { name: 'cil-user' }
+  },
+];
+
+

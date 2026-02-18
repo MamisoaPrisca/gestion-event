@@ -41,7 +41,6 @@ public class UtilisateurDetailsService implements UserDetailsService {
             .filter(p -> p != null && p.getNom() != null)
             .map(p -> new SimpleGrantedAuthority(p.getNom()))
             .collect(Collectors.toList());
-                System.out.println("--------------------------------------------"+authorities.toString());
 
         return org.springframework.security.core.userdetails.User
                 .withUsername(user.getLogin())

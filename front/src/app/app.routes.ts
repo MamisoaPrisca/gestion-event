@@ -20,6 +20,14 @@ export const routes: Routes = [
         loadChildren: () => import('./views/dashboard/routes').then((m) => m.routes)
       },
       {
+        path: 'client',
+        data: {
+          title: $localize`Client`
+        },
+        loadChildren: () => import('./views/client/routes').then((m) => m.routes),
+        
+      },
+      {
         path: 'acces',
         data: {
           title: $localize`Acces`
