@@ -19,7 +19,7 @@
                             <dd class="col-sm-7">{{reservation?.idReservation}}</dd>
                             
                             <dt class="col-sm-5">Date de la réservation</dt>
-                            <dd class="col-sm-7">{{reservation?.dateReservation }}</dd>
+                            <dd class="col-sm-7">{{getDate(reservation?.dateDebut )}}  {{reservation?.dateFin?" au "+getDate(reservation?.dateFin):"" }}</dd>
                             
                             <dt class="col-sm-5">Description</dt>
                             <dd class="col-sm-7">{{reservation?.description! || '-'}}</dd>

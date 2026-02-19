@@ -17,12 +17,16 @@ export class DateUtils {
   }
 
   public static formatDateDDMMYYYY(date: Date): string {
-    const day = date.getDate().toString().padStart(2, '0');
-    const month = (date.getMonth() + 1).toString().padStart(2, '0');
-    const year = date.getFullYear();
+    if(date instanceof Date){
+      const day = date.getDate().toString().padStart(2, '0');
+      const month = (date.getMonth() + 1).toString().padStart(2, '0');
+      const year = date.getFullYear();
 
-    // Sinon, afficher seulement la date
-    return `${day}/${month}/${year}`;
+      // Sinon, afficher seulement la date
+      return `${day}/${month}/${year}`;
+    }
+    return ""
+    
   }
 
   

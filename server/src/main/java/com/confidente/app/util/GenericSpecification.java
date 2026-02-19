@@ -103,6 +103,37 @@ public class GenericSpecification {
             return criteriaBuilder.greaterThan(root.get(key),value);
         };
     }
+    
+    public static Specification lessThan(String key,int value){
+        return (root, query, criteriaBuilder) -> {
+            if (value >=0) {
+                return criteriaBuilder.conjunction(); // Si le paramètre est vide, aucune restriction.
+            }
+            // Concaténation des colonnes nom et prenom avec un espace
+            return criteriaBuilder.lessThan(root.get(key),value);
+        };
+    }
+    
+    
+    public static Specification greaterThan(String key,Date value) {
+        return (root, query, criteriaBuilder) -> {
+            if (value !=null) {
+                return criteriaBuilder.conjunction(); // Si le paramètre est vide, aucune restriction.
+            }
+            // Concaténation des colonnes nom et prenom avec un espace
+            return criteriaBuilder.greaterThan(root.get(key),value);
+        };
+    }
+    
+    public static Specification lessThan(String key,Date value){
+        return (root, query, criteriaBuilder) -> {
+            if (value !=null) {
+                return criteriaBuilder.conjunction(); // Si le paramètre est vide, aucune restriction.
+            }
+            // Concaténation des colonnes nom et prenom avec un espace
+            return criteriaBuilder.lessThan(root.get(key),value);
+        };
+    }
 }
 
 

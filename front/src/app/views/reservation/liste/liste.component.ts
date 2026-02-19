@@ -23,7 +23,8 @@ export class ListeComponent implements OnInit {
   categorie:any[]=[];
   columns :Column[]=[
     {attribut:"idReservation",label:"Ref",visible:true,link:"/client/reservation/fiche"},
-    {attribut:"dateReservation",label:"Date réservation",visible:true},
+    {attribut:"dateDebut",label:"Date debut",visible:true},
+    {attribut:"dateFin",label:"Date fin",visible:true},
     {attribut:"client",label:"Client",visible:true},
     {attribut:"contact",label:"Contact",visible:true},
     {attribut:"description",label:"Description",visible:true},

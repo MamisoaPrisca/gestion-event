@@ -49,7 +49,8 @@ export class ModifComponent {
       this.form = this.formBuilder.group({
         idClient: ['', Validators.required],
         description: [''],
-        dateReservation: ['']
+        dateDebut: [''],
+        dateFin: ['']
       });
     }
 
@@ -85,7 +86,8 @@ export class ModifComponent {
           {
             idClient: this.reservation.idClient,
             description: this.reservation.description,
-            dateReservation: this.reservation.dateReservation
+            dateDebut: this.reservation.dateDebut,
+            dateFin: this.reservation.dateFin
           }
         )
       },

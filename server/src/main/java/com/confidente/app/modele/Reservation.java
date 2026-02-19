@@ -29,10 +29,12 @@ import lombok.NoArgsConstructor;
 public class Reservation {
     @Id
     @GeneratedValue
-    @StringPrefixedId(prefix = "P", sequence = "seq_produit_id",size = 10)
+    @StringPrefixedId(prefix = "R", sequence = "seq_reservation_id",size = 10)
     private String idReservation;
     @Column
-    private Date dateReservation;
+    private Date dateDebut;
+    @Column
+    private Date dateFin;
     @Column
     private String idClient; 
     @Column

@@ -42,7 +42,8 @@ export class SaisieComponent {
     this.form = this.formBuilder.group({
       idClient: ['', Validators.required],
       description: [''],
-      dateReservation: ['']
+      dateDebut: [''],
+      dateFin: ['']
     });
     this.getClient();
   }

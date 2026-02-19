@@ -14,6 +14,7 @@ import com.confidente.app.repository.view.ViewReservationRepository;
 import com.confidente.app.util.GenericSpecification;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -56,11 +57,13 @@ public class ReservationService {
     @Transactional
     public Reservation insert(Reservation reservation,HttpServletRequest  request){
         Specification<Reservation> specification = 
-            GenericSpecification.equal("dateReservation", reservation.getDateReservation());
+            GenericSpecification.greaterThan("dateReservation", reservation.getDateDebut())
+            .and(GenericSpecification.lessThan("dateReservation", reservation.getDateFin()));
         List<Reservation> liste = this.reservationRepository.findAll(specification);
         if(!liste.isEmpty()){
-            throw new ValidationException("La reservation du"+reservation.getDateReservation()+" existe déjà");
+            throw new ValidationException("La reservation du"+reservation.getDateDebut()+" existe déjà");
         }
+        controlleDate(reservation.getDateDebut(),reservation.getDateFin());
         reservation.setEtat(ConstanteEtat.ETAT_CREER);
         reservation=this.reservationRepository.save(reservation);
         this.historiqueService.insertHistorique("Creation reservation", reservation.getIdReservation(), "reservation",request);
@@ -93,14 +96,15 @@ public class ReservationService {
         }
         
         Specification<Reservation> specification = 
-                GenericSpecification.equal("dateReservation", reservation.getDateReservation())
+            GenericSpecification.greaterThan("dateReservation", reservation.getDateDebut())
+                .and(GenericSpecification.lessThan("dateReservation", reservation.getDateFin()))   
                 .and(GenericSpecification.notLike("idReservation", idReservation));
         List<Reservation> liste = this.reservationRepository.findAll(specification);
         if(!liste.isEmpty()){
-            throw new ValidationException("La reservation du"+reservation.getDateReservation()+" existe déjà");
+            throw new ValidationException("La reservation du"+reservation.getDateDebut()+" existe déjà");
         }
         
-        
+        controlleDate(reservation.getDateDebut(),reservation.getDateFin());
         reservation.setIdReservation(idReservation);
         reservation=this.reservationRepository.save(reservation);
         this.historiqueService.insertHistorique("Modification reservation", reservation.getIdReservation(), "reservation",request);
@@ -110,5 +114,11 @@ public class ReservationService {
     
     public List<ViewReservation> getAll(){
         return viewReservationRepository.findAll();
+    }
+    
+    void controlleDate(Date date1 , Date date2){
+        if(!date1.equals(date2) && !date1.before(date2)){
+            throw new ValidationException("La date debut doit etre avant la date fin");
+        }
     }
 }

@@ -4,6 +4,7 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ButtonDirective, CardBodyComponent, CardComponent } from '@coreui/angular';
 import { finalize } from 'rxjs';
 import { ReservationService } from 'src/app/services/reservation.service';
+import { DateUtils } from 'src/app/util/method/dateUtil';
 import { LoaderService } from 'src/app/util/service/loader.service';
 import Swal from 'sweetalert2';
 
@@ -92,5 +93,11 @@ export class FicheComponent {
         });
       }
     });
+  }
+
+  public getDate(col:Date):string{
+    const date = new Date(String(col).length==10?col+" 00:00:00":col);
+    return DateUtils.formatDateDDMMYYYY(date);
+    
   }
 }
