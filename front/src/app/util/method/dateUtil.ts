@@ -1,4 +1,5 @@
 export class DateUtils {
+  
   public static formatDate(date: Date): string {
     const day = date.getDate().toString().padStart(2, '0');
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
@@ -6,7 +7,6 @@ export class DateUtils {
     const hours = date.getHours().toString().padStart(2, '0');
     const minutes = date.getMinutes().toString().padStart(2, '0');
     const seconds = date.getSeconds().toString().padStart(2, '0');
-
     // Si l'heure n'est pas minuit, inclure l'heure
     if (hours !== '00' || minutes !== '00' || seconds !== '00') {
       return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;

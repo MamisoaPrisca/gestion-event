@@ -4,11 +4,10 @@
  */
 package com.confidente.app.service;
 
-import com.confidente.app.authentification.repository.ClientRepository;
+import com.confidente.app.repository.ClientRepository;
 import com.confidente.app.authentification.service.HistoriqueService;
 import com.confidente.app.exeption.ValidationException;
 import com.confidente.app.modele.Client;
-import com.confidente.app.modele.Fournisseur;
 import com.confidente.app.util.GenericSpecification;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;

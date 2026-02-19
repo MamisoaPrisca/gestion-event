@@ -5,7 +5,6 @@
 package com.confidente.app.authentification.service;
 
 import com.confidente.app.authentification.modele.PermissionRole;
-import com.confidente.app.authentification.modele.Role;
 import com.confidente.app.authentification.repository.PermissionRoleRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;

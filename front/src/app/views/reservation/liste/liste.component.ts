@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { finalize } from 'rxjs';
 import { ListeGeneriqueComponent } from 'src/app/layout/generique/liste/liste.component';
-import { ClientService } from 'src/app/services/client.service';
+import { ReservationService } from 'src/app/services/reservation.service';
 import { Column, SelectColumn } from 'src/app/util/generique/column';
 import { Page } from 'src/app/util/generique/page';
 import { LoaderService } from 'src/app/util/service/loader.service';
@@ -22,15 +22,16 @@ export class ListeComponent implements OnInit {
   search:string="";
   categorie:any[]=[];
   columns :Column[]=[
-    {attribut:"idClient",label:"Ref",visible:true,link:"/client/fiche"},
-    {attribut:"nom",label:"Nom",visible:true},
+    {attribut:"idReservation",label:"Ref",visible:true,link:"/client/reservation/fiche"},
+    {attribut:"dateReservation",label:"Date réservation",visible:true},
+    {attribut:"client",label:"Client",visible:true},
     {attribut:"contact",label:"Contact",visible:true},
-    {attribut:"mail",label:"Mail",visible:true},
-    {attribut:"adresse",label:"Adresse",visible:true},
+    {attribut:"description",label:"Description",visible:true},
+    {attribut:"etatLibelle",label:"Etat",visible:true},
   ]
   saisieButton={
-    title:"Nouveau client",
-    link: "/client/saisie"
+    title:"Nouveau reservation",
+    link: "/client/reservation/saisie"
     // method:(item: any) => this.toggleLiveDemo()
   }
   filtreValue:any[]=[];
@@ -39,7 +40,7 @@ export class ListeComponent implements OnInit {
 
   constructor(
     private loaderService:LoaderService,
-    private clientService : ClientService,
+    private reservationService : ReservationService,
   ){
 
   }
@@ -57,7 +58,7 @@ export class ListeComponent implements OnInit {
     for(let item of this.filtreValue){
       Object.assign(data, item);
     }
-    this.clientService.find(data)
+    this.reservationService.find(data)
     .pipe(
       finalize(() => this.loaderService.hide()) // ✅ appelé toujours
     )

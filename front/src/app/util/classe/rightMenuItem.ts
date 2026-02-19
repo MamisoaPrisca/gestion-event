@@ -79,6 +79,15 @@ export const navItemsClient: INavData[] = [
     url: '/client/liste',
     iconComponent: { name: 'cil-user' }
   },
+  {
+    title: true,
+    name: 'Réservation'
+  },
+  {
+    name: 'Liste réservation',
+    url: '/client/reservation/liste',
+    iconComponent: { name: 'cil-calendar' }
+  },
 ];
 
 

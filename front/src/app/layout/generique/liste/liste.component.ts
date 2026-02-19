@@ -116,7 +116,7 @@ export class ListeGeneriqueComponent implements OnChanges{
       return col.toLocaleString('fr-FR'); 
     }
     else if(this.isDate(col)){
-      const date = new Date(col);
+      const date = new Date(String(col).length==10?col+" 00:00:00":col);
       return DateUtils.formatDate(date);
     }
     else {

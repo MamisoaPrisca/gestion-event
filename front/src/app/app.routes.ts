@@ -4,7 +4,7 @@ import { authGuard } from './guards/auth.guard';
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'stock',
+    redirectTo: 'client',
     pathMatch: 'full'
   },
   {
@@ -18,6 +18,14 @@ export const routes: Routes = [
       {
         path: 'dashboard',
         loadChildren: () => import('./views/dashboard/routes').then((m) => m.routes)
+      },
+      {
+        path: 'client/reservation',
+        data: {
+          title: $localize`Reservation`
+        },
+        loadChildren: () => import('./views/reservation/routes').then((m) => m.routes),
+        
       },
       {
         path: 'client',

@@ -1,0 +1,15 @@
+
+<generique-liste
+    [page]="page"
+    [pageSelected]="pageSelected"
+    [sizeSelected]="sizeSelected"
+    [search]="search"
+    [title]="'Réservation'"
+    [saisieButton] = "saisieButton"
+    (emitData)="recherche($event)"
+    [columns]="columns"
+    [filtre]="columnsFiltre"
+    (emitFiltre)="filtre($event)"
+>
+
+</generique-liste>

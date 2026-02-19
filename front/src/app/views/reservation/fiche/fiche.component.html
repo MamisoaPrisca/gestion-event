@@ -1,0 +1,56 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="d-flex justify-content-between mb-3">
+            <span>
+                <h5>Détails du reservation : <span class="text-primary">{{reservation?.designation!}}</span></h5>
+            </span>
+            <span>
+                <a class="me-3" cButton color="primary" [routerLink]="'/client/reservation/modif/'+idreservation" >Modifier</a>
+                <button class="me-3"  (click)="supprimer()" cButton color="danger" >Supprimer</button>
+            </span>
+        </div>
+        <c-card class="mb-3">
+            <c-card-body>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6>Informations de la réservation</h6>
+                        <dl class="row">
+                            <dt class="col-sm-5">Ref</dt>
+                            <dd class="col-sm-7">{{reservation?.idReservation}}</dd>
+                            
+                            <dt class="col-sm-5">Date de la réservation</dt>
+                            <dd class="col-sm-7">{{reservation?.dateReservation }}</dd>
+                            
+                            <dt class="col-sm-5">Description</dt>
+                            <dd class="col-sm-7">{{reservation?.description! || '-'}}</dd>
+                            
+                            <dt class="col-sm-5">Etat</dt>
+                            <dd class="col-sm-7">{{reservation?.etatLibelle! || '-'}}</dd>
+                        </dl>
+                    </div>
+                    <div class="col-md-6">
+                        <h6>Informations du client</h6>
+                        <dl class="row">
+                            <dt class="col-sm-5">Ref-client</dt>
+                            <dd class="col-sm-7">{{reservation?.idReservation}}</dd>
+                            
+                            <dt class="col-sm-5">Nom</dt>
+                            <dd class="col-sm-7">{{reservation?.client || '-' }}</dd>
+                            
+                            <dt class="col-sm-5">Adresse</dt>
+                            <dd class="col-sm-7">{{reservation?.adresse! || '-'}}</dd>
+                            
+                            <dt class="col-sm-5">mail</dt>
+                            <dd class="col-sm-7">{{reservation?.mail! || '-'}}</dd>
+                            
+                            <dt class="col-sm-5">Contact</dt>
+                            <dd class="col-sm-7">{{reservation?.contact! || '-'}}</dd>
+                        </dl>
+                    </div>
+                </div>
+                
+
+            </c-card-body>
+        </c-card>
+    </div>
+</div>

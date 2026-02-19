@@ -77,7 +77,6 @@ export class PrixFournisseurModifComponent implements OnChanges{
     sauvegarder(){
       this.check=true;
       if(this.form.valid){
-        console.log(this.form.getRawValue());
         this.loaderService.show();
         this.produitService.updatePrixFournisseur(this.idProduit,this.prixAchat.idPrixAchat,this.form.getRawValue())
         .pipe(

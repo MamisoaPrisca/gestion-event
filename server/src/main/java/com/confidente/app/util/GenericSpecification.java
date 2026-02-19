@@ -4,6 +4,7 @@
  */
 package com.confidente.app.util;
 
+import java.sql.Date;
 import org.springframework.data.jpa.domain.Specification;
 
 /**
@@ -59,6 +60,17 @@ public class GenericSpecification {
             return criteriaBuilder.like(
                 criteriaBuilder.upper(root.get(key)),value.trim().toUpperCase()
             );
+        };
+    }
+    
+    
+    public static Specification equal(String key,Date value) {
+        return (root, query, criteriaBuilder) -> {
+            if (value == null) {
+                return criteriaBuilder.conjunction(); // Si le paramètre est vide, aucune restriction.
+            }
+            // Concaténation des colonnes nom et prenom avec un espace
+            return criteriaBuilder.equal(root.get(key),value);
         };
     }
     

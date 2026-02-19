@@ -74,7 +74,6 @@ export class EntrerComponent implements OnChanges{
     .pipe(finalize(() => this.loaderService.hide()))
     .subscribe({
       next: (response: any) => {
-        console.log(response)
         this.detailCommande=response
         this.detailCommandeAfficher = this.detailCommande.filter(item => item.reste > 0);
         this.valeur = this.detailCommandeAfficher.map(item => ({

@@ -45,7 +45,6 @@ export class SaisieComponent {
       var today = DateUtils.dateNow();
       var dateNow= DateUtils.formatDateYYYYMMJJ(today);
       var dateEcheance= DateUtils.formatDateYYYYMMJJ(DateUtils.addDays(today,7));
-      console.log()
       this.form = this.formBuilder.group({
         idFournisseur: ['', Validators.required],
         dateSaisie: [dateNow],

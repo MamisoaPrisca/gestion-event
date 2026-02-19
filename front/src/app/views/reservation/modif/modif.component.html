@@ -1,0 +1,75 @@
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        <h5>Création d’un reservation</h5>
+        
+        <c-card>
+            <c-card-body>
+                <form [formGroup]="form" (ngSubmit)="sauvegarder()">
+                    <c-row class="mb-3">
+                        <label cLabel="col" class="col-sm-4" for="nom">
+                            client*
+                        </label>
+                        <c-col [sm]="8">
+                            <generique-autocomplet 
+                                formControlName="idClient"
+                                [items]="client"
+                                [valueColumn]="'idClient'"
+                                [labelColumn]="'nom'"
+                                placeholder="Ex:nom client"
+                                [class]="getClass('idClient')"
+                                >
+                            </generique-autocomplet>
+                            <c-form-feedback >
+                                Le client est obligatoire
+                            </c-form-feedback>
+                        </c-col>
+                    </c-row>
+
+                    
+                    <c-row class="mb-3">
+                        <label cLabel="col" class="col-sm-4" for="contact">
+                            Date de la réservation*
+                        </label>
+                        <c-col [sm]="8">
+                            <input cFormControl id="dateReservation" type="text" [class]="getClass('dateReservation')"
+                            formControlName="dateReservation" type="date" />
+                            <c-form-feedback >
+                                La date de la réservation est obligatoire
+                            </c-form-feedback>
+                        </c-col>
+                    </c-row>
+                    
+                    <c-row class="mb-3">
+                        <label cLabel="col" class="col-sm-4" for="mail">
+                            Description*
+                        </label>
+                        <c-col [sm]="8">
+                            <textarea cFormControl formControlName="description"
+                            id="exampleFormControlTextarea1" rows="3" [class]="getClass('mail')"></textarea>
+
+                            <c-form-feedback >
+                                Le mail est obligatoire
+                            </c-form-feedback>
+                        </c-col>
+                    </c-row>
+    
+                    <c-row class="mb-3">
+                        <c-col [sm]="12">
+                            <div class="w-100 d-flex justify-content-end">
+                                <input
+                                    cButton
+                                    type="submit"
+                                    class="px-4 btn btn-primary"
+                                    value="Enregistrer"
+                                    />
+                            </div>
+                        </c-col>
+                    </c-row>
+                    
+                </form>
+            </c-card-body>
+        </c-card>
+    </div>
+</div>
+

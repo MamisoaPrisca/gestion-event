@@ -5,7 +5,6 @@
 package com.confidente.app.controller;
 
 import com.confidente.app.modele.Client;
-import com.confidente.app.modele.Client;
 import com.confidente.app.service.ClientService;
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.Map;
