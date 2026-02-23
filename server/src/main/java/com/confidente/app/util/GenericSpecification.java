@@ -117,7 +117,7 @@ public class GenericSpecification {
     
     public static Specification greaterThan(String key,Date value) {
         return (root, query, criteriaBuilder) -> {
-            if (value !=null) {
+            if (value ==null) {
                 return criteriaBuilder.conjunction(); // Si le paramètre est vide, aucune restriction.
             }
             // Concaténation des colonnes nom et prenom avec un espace
@@ -127,13 +127,15 @@ public class GenericSpecification {
     
     public static Specification lessThan(String key,Date value){
         return (root, query, criteriaBuilder) -> {
-            if (value !=null) {
+            if (value ==null) {
                 return criteriaBuilder.conjunction(); // Si le paramètre est vide, aucune restriction.
             }
             // Concaténation des colonnes nom et prenom avec un espace
             return criteriaBuilder.lessThan(root.get(key),value);
         };
     }
+    
+    
 }
 
 

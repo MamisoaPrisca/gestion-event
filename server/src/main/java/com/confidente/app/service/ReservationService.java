@@ -57,11 +57,13 @@ public class ReservationService {
     @Transactional
     public Reservation insert(Reservation reservation,HttpServletRequest  request){
         Specification<Reservation> specification = 
-            GenericSpecification.greaterThan("dateReservation", reservation.getDateDebut())
-            .and(GenericSpecification.lessThan("dateReservation", reservation.getDateFin()));
+            GenericSpecification.lessThan("dateDebut", reservation.getDateDebut())
+            .and(GenericSpecification.greaterThan("dateDebut", reservation.getDateFin()))
+            .and(GenericSpecification.lessThan("dateFin", reservation.getDateDebut()))
+            .and(GenericSpecification.greaterThan("dateFin", reservation.getDateFin()));
         List<Reservation> liste = this.reservationRepository.findAll(specification);
         if(!liste.isEmpty()){
-            throw new ValidationException("La reservation du"+reservation.getDateDebut()+" existe déjà");
+            throw new ValidationException("La reservation du "+reservation.getDateDebut()+" existe déjà");
         }
         controlleDate(reservation.getDateDebut(),reservation.getDateFin());
         reservation.setEtat(ConstanteEtat.ETAT_CREER);
@@ -96,9 +98,11 @@ public class ReservationService {
         }
         
         Specification<Reservation> specification = 
-            GenericSpecification.greaterThan("dateReservation", reservation.getDateDebut())
-                .and(GenericSpecification.lessThan("dateReservation", reservation.getDateFin()))   
-                .and(GenericSpecification.notLike("idReservation", idReservation));
+            GenericSpecification.lessThan("dateDebut", reservation.getDateDebut())
+            .and(GenericSpecification.greaterThan("dateDebut", reservation.getDateFin()))
+            .and(GenericSpecification.lessThan("dateFin", reservation.getDateDebut()))
+            .and(GenericSpecification.greaterThan("dateFin", reservation.getDateFin())) 
+            .and(GenericSpecification.notLike("idReservation", idReservation));
         List<Reservation> liste = this.reservationRepository.findAll(specification);
         if(!liste.isEmpty()){
             throw new ValidationException("La reservation du"+reservation.getDateDebut()+" existe déjà");
